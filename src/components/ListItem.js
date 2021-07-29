@@ -1,14 +1,15 @@
-import React, {useRef} from 'react'
+import React, {useState} from 'react'
 import Button from '../styledComponents/Button'
 
 const ListItem = ({toList}) => {
 
-    const input = useRef('')
-
+    const [currInput, setCurrInput] = useState('')
+    
     const setListFunction =(e)=> {
+        console.log(currInput)
         e.preventDefault();
-        toList(input.current.value)
-        input.current.value = ""
+        currInput === ""? alert("pleaze, no empty memos..."): toList(currInput)
+        setCurrInput('')
     }
 
     const clearLocasStorage =()=> {
@@ -16,10 +17,9 @@ const ListItem = ({toList}) => {
     }
 
     
-
     return (
             <form>
-                <input type="text"  ref={input} />
+                <input type="text" onChange={(e) => setCurrInput(e.target.value)} value={currInput} />
                 <Button primary type="submit" onClick={setListFunction}>add a Memo</Button>
                 <Button onClick={clearLocasStorage}>delete ALL</Button>
             </form>
